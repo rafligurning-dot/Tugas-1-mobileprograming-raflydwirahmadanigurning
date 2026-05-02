@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,138 +18,137 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text("Glass Dashboard"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Stack(
+      backgroundColor: Color(0xFFF0F2F5),
+      body: Column(
         children: [
-          // Background gradient
           Container(
+            height: 200,
+            width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.purple,
-                  Colors.blue,
-                ],
+                colors: [Color(0xFF6A11CB), Color(0xFF2575FC)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, top: 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Dashboard",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Welcome 👋",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ],
               ),
             ),
           ),
 
+          SizedBox(height: 20),
+
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 100, 16, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Welcome ✨",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF36D1DC), Color(0xFF5B86E5)],
                 ),
-
-                SizedBox(height: 20),
-
-                // Glass Card
-                glassCard(),
-
-                SizedBox(height: 20),
-
-                Text(
-                  "Menu",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-
-                SizedBox(height: 10),
-
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.data_usage, color: Colors.white, size: 40),
+                  SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      glassMenu(Icons.person, "Profile"),
-                      glassMenu(Icons.list, "Data"),
-                      glassMenu(Icons.settings, "Settings"),
-                      glassMenu(Icons.logout, "Logout"),
+                      Text(
+                        "Data Tersimpan",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      Text(
+                        "350",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
-                ),
+                ],
+              ),
+            ),
+          ),
+
+          SizedBox(height: 20),
+
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                menuItem(Icons.person, "Profile"),
+                menuItem(Icons.folder, "Data"),
+                menuItem(Icons.settings, "Settings"),
+                menuItem(Icons.logout, "Logout"),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
 
-  Widget glassCard() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.white.withOpacity(0.3)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Total Data",
-                      style: TextStyle(color: Colors.white70)),
-                  SizedBox(height: 8),
-                  Text(
-                    "120",
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
-              Icon(Icons.analytics, color: Colors.white, size: 40),
-            ],
-          ),
-        ),
+      // FLOATING BUTTON
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text("Add Data"),
+        icon: Icon(Icons.add),
+        backgroundColor: Color(0xFF6A11CB),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget glassMenu(IconData icon, String title) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.white.withOpacity(0.3)),
+  Widget menuItem(IconData icon, String title) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 6,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: Colors.white, size: 35),
-              SizedBox(height: 10),
-              Text(title, style: TextStyle(color: Colors.white)),
-            ],
+        ],
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Color(0xFF6A11CB)),
+          SizedBox(width: 15),
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 16),
+            ),
           ),
-        ),
+          Icon(Icons.arrow_forward_ios, size: 16),
+        ],
       ),
     );
   }
